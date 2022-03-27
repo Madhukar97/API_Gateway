@@ -1,0 +1,31 @@
+server:
+  port: 8083
+  
+spring:
+  application:
+    name: API_GATEWAY
+    
+  cloud:
+    gateway:
+    
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+              allowedOrigins: "*"
+              allowedMethods: "*"
+              allowedHeaders: "*"
+              
+      routes:
+      - id: FUNDOO-USER-MICROSERVICE
+        uri:
+          lb://FUNDOO-USER-MICROSERVICE
+        predicates:
+        - Path=/usermicroservice/**
+        
+      - id: FUNDOO-NOTE-MICROSERVICE
+        uri:
+          lb://FUNDOO-NOTE-MICROSERVICE
+        predicates:
+        - Path=/notemicroservice/**
+
+      
